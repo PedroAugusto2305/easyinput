@@ -1,15 +1,13 @@
-import readline from "node:readline";
+import prompt from "syncprompt";
+import convertTextToNumber from "./conversor.js";
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+function input(question) {
+  let response = prompt(question);
+  let number = convertTextToNumber(response);
+  if (!isNaN(number)) {
+    return number;
+  }
 
-async function main() {
-  const question = (query) => new Promise((resolve) => rl.question(query, resolve));
-  const answer = await question("What do you think?");
-  console.log(`Olá, ${answer}`);
-  rl.close();
+  return response;
 }
-
-main();
+export default input;
